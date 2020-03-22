@@ -12,9 +12,9 @@ class Person (val givenName: String, @BeanProperty var surname: String, protecte
  object Appl extends App{
      val p = new Person("Jan", "Kowalski", "1234567890")
      println(p.name)
-     p.surname = "Nowak"
-     println(p.name)
- }
+     p.setSurname("Nowak");
+     println(p.getSurname())
+}
 
 class Int2DVec private (val x: Int, val y: Int){
     def +(other: Int2DVec) = new Int2DVec(x + other.x, y + other.y)
@@ -23,6 +23,7 @@ class Int2DVec private (val x: Int, val y: Int){
     def -(other: Int2DVec) = new Int2DVec(x - other.x, y - other.y)
     override def toString() = "(" + x.toString + "," + y.toString + ")"
 
+    // Auxiliary constructors
     // def this() = {
     //     this(0,0)
     //     println("Creating Int2DVec(0,0)")
@@ -53,10 +54,10 @@ object Appl1{
 }
 
 object Int2DVec {
-        def apply(x: Int, y: Int) = new Int2DVec(x, y)
-        def apply() = new Int2DVec(0,0)
-        def apply(prototype: Int2DVec) = new Int2DVec(prototype.x, prototype.y)
-    }
+    def apply(x: Int, y: Int) = new Int2DVec(x, y)
+    def apply() = new Int2DVec(0,0)
+    def apply(prototype: Int2DVec) = new Int2DVec(prototype.x, prototype.y)
+}
 
 trait Fraction {
   val num: Int
