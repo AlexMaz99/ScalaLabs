@@ -99,6 +99,19 @@ object Fraction {
       // super.*(other) is not loggable
       Fraction(this.num * other.num, this.denom * other.denom, true)
     }
+    override def +(other: Fraction): Fraction = {
+      log(timeStamp, "adding " + this.toString + " to " + other.toString)
+      Fraction(this.num * other.denom + this.denom * other.num, this.denom * other.denom)
+    }
+    override def -(other: Fraction): Fraction = {
+      log(timeStamp, "subtraction " + this.toString + " from " + other.toString)
+      Fraction(this.num * other.denom - this.denom * other.num, this.denom * other.denom)
+    }
+    override def /(other: Fraction): Fraction = {
+      log(timeStamp, "dividing " + this.toString + " by " + other.toString)
+      Fraction(this.num * other.denom, this.denom * other.num)
+    }
+
   }
 }
 
