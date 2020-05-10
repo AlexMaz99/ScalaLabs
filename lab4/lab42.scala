@@ -1,4 +1,5 @@
 import scala.math.pow
+import scala.annotation.tailrec
 
 object Appl42 {
     def checkPredicate(pred: Boolean,
@@ -24,6 +25,18 @@ object Appl42 {
         }
         goFrom(0)
     }
+
+    def sumArrayRec3(elems: Array[Int]) = {
+    @tailrec
+    def goFrom(i: Int,
+               size: Int,
+               elms: Array[Int],
+               acc: Int): Int = {
+      if (i < size) goFrom(i + 1, size, elms, acc + elms(i))
+      else acc
+    }
+    goFrom(0, elems.size, elems, 0)
+  }
 
     def sumSqrArrayIter(elems: Array[Int]) = {
         var sum = 0
@@ -61,6 +74,16 @@ object Appl42 {
         goFrom(0)
     }
 
+    def prodArrayRec3(elems: Array[Int]) = {
+        val size = elems.size
+        @tailrec
+        def goFrom(i: Int, acc: Int): Int = {
+            if (i < size) goFrom(i + 1, acc * elems(i))
+            else acc
+        }
+        goFrom(0, 1)
+    }
+
     def sumAbsArrayIter(elems: Array[Int]) = {
         var sum = 0
         for (i <- elems) sum += i.abs
@@ -78,6 +101,15 @@ object Appl42 {
         }
         goFrom(0)
     }
+    def sumAbsArrayRec3(elems: Array[Int]) = {
+        val size = elems.size
+        @tailrec
+        def goFrom(i: Int, acc: Int): Int = {
+            if (i < size) goFrom(i + 1, acc + elems(i).abs)
+            else acc
+        }
+        goFrom(0, 0)
+    }
 
     def main(args: Array[String]) {
         val a1To5 = (1 to 5).toArray
@@ -90,6 +122,8 @@ object Appl42 {
                     "sumArrayRec1(0, a1To5) == " + expectResult)
         checkPredicate(sumArrayRec2(a1To5) == expectResult,
                     "sumArrayRec2(a1To5) == " + expectResult)
+        checkPredicate(sumArrayRec3(a1To5) == expectResult,
+                    "sumArrayRec3(a1To5) == " + expectResult)
         
         val expectResultSqr = 55
         checkPredicate(sumSqrArrayIter(a1To5) == expectResultSqr,
@@ -106,7 +140,10 @@ object Appl42 {
                     "prodArrayRec1(0, a1To5) == " + expectResultProd)
         checkPredicate(prodArrayRec2(a1To5) == expectResultProd,
                     "prodArrayRec2(a1To5) == " + expectResultProd)
+        checkPredicate(prodArrayRec3(a1To5) == expectResultProd,
+                    "prodArrayRec3(a1To5) == " + expectResultProd)
         
+
         val a1To5Abs = Array(-1, 2, -3, 4, -5)
         println("Testing with a1To5Abs = " +
                 a1To5Abs.mkString("Array(", ", ", ") ..."))
@@ -117,6 +154,8 @@ object Appl42 {
                     "sumAbsArrayRec1(0, a1To5Abs) == " + expectResultAbs)
         checkPredicate(sumAbsArrayRec2(a1To5Abs) == expectResultAbs,
                     "sumAbsArrayRec2(a1To5Abs) == " + expectResultAbs)
+        checkPredicate(sumAbsArrayRec3(a1To5Abs) == expectResultAbs,
+                    "sumAbsArrayRec3(a1To5Abs) == " + expectResultAbs)
     }
 }
 
